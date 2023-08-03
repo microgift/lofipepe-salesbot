@@ -15,6 +15,7 @@ app.use(express.json())
 const postedCache = new Cache()
 
 app.post('/webhook', async (req, res) => {
+  console.log(req);
   const webhooks = req.body || []
 
   console.log('Received incoming webook...')
@@ -22,7 +23,7 @@ app.post('/webhook', async (req, res) => {
   const activitys = webhooks.event.activity;
   activitys.map((activity: any) => {
     console.log('+++++++++++++++++++++++++++')
-    console.log(activity);
+    // console.log(activity);
     console.log('---------------------------')
   });
 
