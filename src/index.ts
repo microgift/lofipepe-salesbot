@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
+import { PEPE_NFT } from './config';
 
 // import { createCollectionWebhook } from './services/webhook'
 // createCollectionWebhook();
@@ -24,18 +25,32 @@ app.post('/webhook', async (req, res) => {
   console.log('Received incoming webook...')
 
   const activitys = webhooks.event.activity;
+
   activitys.map((activity: any) => {
-    console.log('+++++++++++++++++++++++++++')
-    console.log(activity);
-    console.log('---------------------------')
+    if (activity.contractAddress == PEPE_NFT) {
+
+      const newSale: SalesData = {
+        sender: activity.fromAddress,
+        receiver: activity.toAddress,
+        nftId: activity.erc721TokenId
+      };
+
+      salesData.unshift(newSale);
+
+      if (salesData.length > 5) {
+        salesData.pop();
+      }
+    }
   });
 
-  let status = 200
-
-
   console.log('Finished processing incoming webhook...')
-  res.status(status)
+  res.status(200)
   res.send('ok')
+})
+
+app.get('/sales', (req, res) => {
+  console.log("get sales");
+  res.send(salesData);
 })
 
 app.get('/health', (req, res) => {
