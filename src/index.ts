@@ -9,6 +9,7 @@ import { PEPE_NFT } from './config';
 interface SalesData {
   sender: string;
   receiver: string;
+  contract: string;
   nftId: string;
   timestamp: number;
 }
@@ -34,6 +35,7 @@ app.post('/webhook', async (req, res) => {
       const newSale: SalesData = {
         sender: activity.fromAddress,
         receiver: activity.toAddress,
+        contract: activity.contractAddress,
         nftId: activity.erc721TokenId,
         timestamp: Date.now()
       };
