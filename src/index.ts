@@ -2,9 +2,16 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
 
-import Cache from './services/cache'
 // import { createCollectionWebhook } from './services/webhook'
 // createCollectionWebhook();
+
+interface SalesData {
+  sender: string;
+  receiver: string;
+  nftId: string;
+}
+
+let salesData: SalesData[] = [];
 
 const HOST = process.env.HOST ?? 'http://localhost'
 const PORT = process.env.PORT ?? 3000
@@ -12,18 +19,14 @@ const PORT = process.env.PORT ?? 3000
 const app = express()
 app.use(express.json())
 
-const postedCache = new Cache()
-
 app.post('/webhook', async (req, res) => {
-  console.log(req);
   const webhooks = req.body || []
-
   console.log('Received incoming webook...')
 
   const activitys = webhooks.event.activity;
   activitys.map((activity: any) => {
     console.log('+++++++++++++++++++++++++++')
-    // console.log(activity);
+    console.log(activity);
     console.log('---------------------------')
   });
 
