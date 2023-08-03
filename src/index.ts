@@ -10,6 +10,7 @@ interface SalesData {
   sender: string;
   receiver: string;
   nftId: string;
+  timestamp: number;
 }
 
 let salesData: SalesData[] = [];
@@ -27,12 +28,14 @@ app.post('/webhook', async (req, res) => {
   const activitys = webhooks.event.activity;
 
   activitys.map((activity: any) => {
-    if (activity.contractAddress == PEPE_NFT) {
+    // if (activity.contractAddress == PEPE_NFT)
+    {
 
       const newSale: SalesData = {
         sender: activity.fromAddress,
         receiver: activity.toAddress,
-        nftId: activity.erc721TokenId
+        nftId: activity.erc721TokenId,
+        timestamp: Date.now()
       };
 
       salesData.unshift(newSale);
