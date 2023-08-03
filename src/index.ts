@@ -19,9 +19,12 @@ app.post('/webhook', async (req, res) => {
 
   console.log('Received incoming webook...')
 
-  console.log(webhooks);
-
-  console.log('---------------------------')
+  const activitys = webhooks.event.activity;
+  activitys.map((activity: any) => {
+    console.log('+++++++++++++++++++++++++++')
+    console.log(activity);
+    console.log('---------------------------')
+  });
 
   let status = 200
 
