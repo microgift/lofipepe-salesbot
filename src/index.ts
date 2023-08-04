@@ -6,6 +6,18 @@ import { init } from './opensea';
 const HOST = process.env.HOST ?? 'http://localhost'
 const PORT = process.env.PORT ?? 3000
 
+export interface SalesData {
+  contract: string,
+  tokenId: string,
+  nameNFT: string,
+  price: string,
+  takerName: string,
+  makerName: string,
+  timestamp: number
+}
+
+export let salesData: SalesData[] = [];
+
 const app = express()
 app.use(express.json())
 
@@ -18,4 +30,9 @@ app.get('/health', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 Lo-Fi pepe sales bot listening on ${HOST}:${PORT}`)
+})
+
+app.get('/sales', (req, res) => {
+  console.log("get sales data")
+  res.send(salesData)
 })
