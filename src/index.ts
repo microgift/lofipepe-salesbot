@@ -1,62 +1,24 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
-import { PEPE_NFT } from './config';
 
-// import { createCollectionWebhook } from './services/webhook'
-// createCollectionWebhook();
-
-interface SalesData {
-  sender: string;
-  receiver: string;
-  contract: string;
-  nftId: string;
-  timestamp: number;
+export interface SalesData {
+  contract: string,
+  tokenId: string,
+  nameNFT: string,
+  price: string,
+  takerName: string,
+  makerName: string,
+  timestamp: number
 }
 
-let salesData: SalesData[] = [];
+export let salesData: SalesData[] = [];
 
 const HOST = process.env.HOST ?? 'http://localhost'
 const PORT = process.env.PORT ?? 3000
 
 const app = express()
 app.use(express.json())
-
-app.post('/webhook', async (req, res) => {
-  const webhooks = req.body || []
-  console.log('Received incoming webook...')
-
-  const activitys = webhooks.event.activity;
-
-  activitys.map((activity: any) => {
-    // if (activity.contractAddress == PEPE_NFT)
-    {
-
-      const newSale: SalesData = {
-        sender: activity.fromAddress,
-        receiver: activity.toAddress,
-        contract: activity.contractAddress,
-        nftId: activity.erc721TokenId,
-        timestamp: Date.now()
-      };
-
-      salesData.unshift(newSale);
-
-      if (salesData.length > 5) {
-        salesData.pop();
-      }
-    }
-  });
-
-  console.log('Finished processing incoming webhook...')
-  res.status(200)
-  res.send('ok')
-})
-
-app.get('/sales', (req, res) => {
-  console.log("get sales");
-  res.send(salesData);
-})
 
 app.get('/health', (req, res) => {
   console.log("I'm alive :)")
