@@ -1,24 +1,15 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
-
-export interface SalesData {
-  contract: string,
-  tokenId: string,
-  nameNFT: string,
-  price: string,
-  takerName: string,
-  makerName: string,
-  timestamp: number
-}
-
-export let salesData: SalesData[] = [];
+import { init } from './opensea';
 
 const HOST = process.env.HOST ?? 'http://localhost'
 const PORT = process.env.PORT ?? 3000
 
 const app = express()
 app.use(express.json())
+
+init();
 
 app.get('/health', (req, res) => {
   console.log("I'm alive :)")

@@ -2,8 +2,19 @@ import { OpenSeaStreamClient } from "@opensea/stream-js";
 import WebSocket from "ws";
 // import fetch from "node-fetch";
 import { OPENSEA_SLUG } from "./config.js";
-import { SalesData, salesData } from "./index.js";
 import Cache from "./cache.js";
+
+interface SalesData {
+    contract: string,
+    tokenId: string,
+    nameNFT: string,
+    price: string,
+    takerName: string,
+    makerName: string,
+    timestamp: number
+}
+
+let salesData: SalesData[] = [];
 
 const OPENSEA_API = process.env.OPENSEA_API || "";
 
@@ -68,7 +79,7 @@ openSeaClient.onItemSold(`*`, async (event: any) => {
         ` ${event.payload.payment_token.symbol}`;
 
     //here  comes the part we save the sale in the database
-    console.log("saving sale data", event.payload);
+    // console.log("saving sale data", event.payload);
 
     //tokenId is in the event payload/ item/ nft_id
     const token = event.payload.item.nft_id;
