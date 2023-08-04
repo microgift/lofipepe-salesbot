@@ -2,19 +2,8 @@ import { OpenSeaStreamClient } from "@opensea/stream-js";
 import WebSocket from "ws";
 // import fetch from "node-fetch";
 import { OPENSEA_SLUG } from "./config.js";
-import Cache from "./cache.js";
-
-interface SalesData {
-    contract: string,
-    tokenId: string,
-    nameNFT: string,
-    price: string,
-    takerName: string,
-    makerName: string,
-    timestamp: number
-}
-
-let salesData: SalesData[] = [];
+import { SalesData, salesData } from "./index.js";
+// import Cache from "./cache.js";
 
 const OPENSEA_API = process.env.OPENSEA_API || "";
 
@@ -104,11 +93,6 @@ openSeaClient.onItemSold(`*`, async (event: any) => {
     if (salesData.length > 5) {
         salesData.pop();
     }
-
-    //update redis
-
-    const cache = new Cache()
-    cache.publish(JSON.stringify(salesData));
 
     console.log("Processed sale: ", nameNFT);
 });
