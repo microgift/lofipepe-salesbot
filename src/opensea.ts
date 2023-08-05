@@ -23,8 +23,8 @@ export const init = () => {
 
 openSeaClient.onItemSold(`*`, async (event: any) => {
 
-    // if (!event.payload.collection.slug.includes(OPENSEA_SLUG))
-    // return;
+    if (!event.payload.collection.slug.includes(OPENSEA_SLUG))
+        return;
 
     const takerAddress = event.payload.taker.address;
     const makerAddress = event.payload.maker.address;
