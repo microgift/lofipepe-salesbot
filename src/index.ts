@@ -10,6 +10,7 @@ export interface SalesData {
   contract: string,
   tokenId: string,
   nameNFT: string,
+  imageUrl: string,
   price: string,
   takerName: string,
   makerName: string,

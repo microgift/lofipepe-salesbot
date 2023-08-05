@@ -82,6 +82,7 @@ openSeaClient.onItemSold(`*`, async (event: any) => {
         contract: contract,
         tokenId: tokenId,
         nameNFT: nameNFT,
+        imageUrl: event.payload.item.metadata.image_url,
         price: price,
         takerName: takerAddress,
         makerName: makerAddress,
