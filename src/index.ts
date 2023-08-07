@@ -2,9 +2,12 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
 import { init } from './opensea';
+import cors from "cors";
+import { SALES_DEMO } from './config';
+
 
 const HOST = process.env.HOST ?? 'http://localhost'
-const PORT = process.env.PORT ?? 3000
+const PORT = process.env.PORT ?? 6969
 
 export interface SalesData {
   contract: string,
@@ -22,6 +25,14 @@ export let salesData: SalesData[] = [];
 const app = express()
 app.use(express.json())
 
+const corsOptions = {
+  origin: '*',
+  credentials: true,            //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
 init();
 
 app.get('/health', (req, res) => {
@@ -36,4 +47,9 @@ app.listen(PORT, () => {
 app.get('/sales', (req, res) => {
   console.log("get sales data")
   res.send(salesData)
+})
+
+app.get('/sales-demo', (req, res) => {
+  console.log("get sales demo data")
+  res.send(SALES_DEMO)
 })
