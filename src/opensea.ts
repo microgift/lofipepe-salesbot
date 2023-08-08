@@ -62,7 +62,7 @@ openSeaClient.onItemSold(`*`, async (event: any) => {
     //     ).username ?? c2;
 
     const nameNFT = event.payload.item.metadata.name;
-    // const NFTLink = event.payload.item.permalink;
+    const NFTLink = event.payload.item.permalink;
     const price =
         event.payload.sale_price / Math.pow(10, 18) +
         ` ${event.payload.payment_token.symbol}`;
@@ -82,6 +82,7 @@ openSeaClient.onItemSold(`*`, async (event: any) => {
         contract: contract,
         tokenId: tokenId,
         nameNFT: nameNFT,
+        link: NFTLink,
         imageUrl: event.payload.item.metadata.image_url,
         price: price,
         takerName: takerAddress,
