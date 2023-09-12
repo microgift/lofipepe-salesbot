@@ -4,7 +4,7 @@ import express from 'express'
 import { init } from './opensea';
 import cors from "cors";
 import mongoose from 'mongoose'
-import SalesModel from '../model/salesModel'
+import SalesModel from './model/salesModel'
 
 const HOST = process.env.HOST ?? 'http://localhost'
 const PORT = process.env.PORT ?? 6969

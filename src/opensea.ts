@@ -3,7 +3,7 @@ import WebSocket from "ws";
 // import fetch from "node-fetch";
 import { OPENSEA_SLUG } from "./config.js";
 // import Cache from "./cache.js";
-import SalesModel from '../model/salesModel'
+import SalesModel from './model/salesModel.js'
 
 const OPENSEA_API = process.env.OPENSEA_API || "";
 
