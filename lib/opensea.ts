@@ -1,9 +1,7 @@
 import { OpenSeaStreamClient } from "@opensea/stream-js";
 import WebSocket from "ws";
-// import fetch from "node-fetch";
-import { OPENSEA_SLUG } from "./config.js";
-// import Cache from "./cache.js";
-import SalesModel from './model/salesModel.js'
+import { OPENSEA_SLUG } from "./config";
+import SalesModel from "../model/salesModel"
 
 const OPENSEA_API = process.env.OPENSEA_API || "";
 

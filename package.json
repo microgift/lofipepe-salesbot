@@ -6,10 +6,10 @@
   "author": "Anthony Morris",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "ts-node src/test.ts"
+    "test": "ts-node test.ts"
   },
   "dependencies": {
     "@metaplex-foundation/js": "^0.17.6",

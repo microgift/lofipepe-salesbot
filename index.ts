@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
-import { init } from './opensea';
+import { init } from './lib/opensea';
 import cors from "cors";
 import mongoose from 'mongoose'
 import SalesModel from './model/salesModel'
@@ -34,11 +34,6 @@ app.use(cors(corsOptions)) // Use this after the variable declaration
 
 init();
 
-app.get('/health', (req, res) => {
-  console.log("I'm alive :)")
-  res.send('ok')
-})
-
 mongoose
     .connect(process.env.MONGO_URI || '')
     .then(async () => {
@@ -53,11 +48,17 @@ mongoose
         process.exit();
     });
 
+app.get('/', (req, res) => {
+  console.log("I'm alive :)")
+  res.send('ok')
+})
 
 app.get('/sales', async (req, res) => {
   console.log("get sales data");
 
   const salesData = await SalesModel.find();
+
+  console.log(salesData)
 
   res.send(salesData)
 })
