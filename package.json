@@ -12,6 +12,7 @@
     "test": "ts-node src/test.ts"
   },
   "dependencies": {
+    "@cyclic.sh/dynamodb": "^0.0.35",
     "@metaplex-foundation/js": "^0.17.6",
     "@opensea/stream-js": "^0.1.1",
     "@solana/web3.js": "^1.66.2",
