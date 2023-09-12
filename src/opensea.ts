@@ -2,8 +2,8 @@ import { OpenSeaStreamClient } from "@opensea/stream-js";
 import WebSocket from "ws";
 // import fetch from "node-fetch";
 import { OPENSEA_SLUG } from "./config.js";
-import { SalesData, salesData } from "./index.js";
 // import Cache from "./cache.js";
+import SalesModel from '../model/salesModel'
 
 const OPENSEA_API = process.env.OPENSEA_API || "";
 
@@ -78,7 +78,8 @@ openSeaClient.onItemSold(`*`, async (event: any) => {
     const contract = split[1];
     const tokenId = split[2];
 
-    const newSale: SalesData = {
+    //  add to db
+    const stakeData = new SalesModel({
         contract: contract,
         tokenId: tokenId,
         nameNFT: nameNFT,
@@ -88,13 +89,12 @@ openSeaClient.onItemSold(`*`, async (event: any) => {
         takerName: takerAddress,
         makerName: makerAddress,
         timestamp: Date.now()
-    };
+    });
 
-    salesData.unshift(newSale);
+    await stakeData.save();
 
-    if (salesData.length > 5) {
-        salesData.pop();
-    }
+    //  delete one
+    await SalesModel.deleteOne();
 
     console.log("Processed sale: ", nameNFT);
 });
