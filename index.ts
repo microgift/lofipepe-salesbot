@@ -58,7 +58,5 @@ app.get('/sales', async (req, res) => {
 
   const salesData = await SalesModel.find();
 
-  console.log(salesData)
-
   res.send(salesData)
 })
