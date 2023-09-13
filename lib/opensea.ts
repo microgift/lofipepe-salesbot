@@ -19,10 +19,8 @@ export const init = () => {
 
 //get subscribed guild id from parse.js
 
-openSeaClient.onItemSold(`*`, async (event: any) => {
-
-    if (!event.payload.collection.slug.includes(OPENSEA_SLUG))
-        return;
+openSeaClient.onItemSold(OPENSEA_SLUG, async (event: any) => {
+    console.log("Received sale event: ", event.payload.transaction.hash);
 
     const takerAddress = event.payload.taker.address;
     const makerAddress = event.payload.maker.address;
